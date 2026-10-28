@@ -1,28 +1,39 @@
 package com.example.demo.model;
 
-import com.fasterxml.jackson.annotation.JsonTypeId;
 import jakarta.persistence.*;
-
-import javax.annotation.processing.Generated;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
 
-    @JsonTypeId
-    @Generated(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, unique = true)
+    private String correo;
+
+    @Column(nullable = false)
     private String nombre;
-    private String email;
-    private String rol;
-    private String token;
+
+    @Column(nullable = false)
+    private String contrasena;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Rol rol;
+
+    public enum Rol {
+        CLIENTE,
+        ADMINISTRADOR
+    }
 
     public Usuario() {}
 
-    public Usuario(String nombre, String email, String rol) {
+    public Usuario(String nombre, String correo, String contrasena, Rol rol) {
         this.nombre = nombre;
-        this.email = email;
+        this.correo = correo;
+        this.contrasena = contrasena;
         this.rol = rol;
     }
 
@@ -32,12 +43,12 @@ public class Usuario {
     public String getNombre() { return nombre; }
     public void setNombre(String nombre) { this.nombre = nombre; }
 
-    public String getEmail() { return email; }
-    public void setEmail(String email) { this.email = email; }
+    public String getCorreo() { return correo; }
+    public void setCorreo(String correo) { this.correo = correo; }
 
-    public String getRol() { return rol; }
-    public void setRol(String rol) { this.rol = rol; }
+    public String getContrasena() { return contrasena; }
+    public void setContrasena(String contrasena) { this.contrasena = contrasena; }
 
-    public String getToken() { return token; }
-    public void setToken(String token) { this.token = token; }
+    public Rol getRol() { return rol; }
+    public void setRol(Rol rol) { this.rol = rol; }
 }
