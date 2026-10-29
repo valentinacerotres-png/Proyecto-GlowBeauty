@@ -1,12 +1,13 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonTypeId;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
 
-    @Id
+    @JsonTypeId
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
